@@ -1,5 +1,16 @@
 package study;
 
+import io.netty.handler.codec.http.QueryStringDecoder;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLStreamHandler;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.management.QueryExp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +35,23 @@ class FileTest {
      * resource 디렉터리의 경로는 어떻게 알아낼 수 있을까?
      */
     @Test
-    void resource_디렉터리에_있는_파일의_경로를_찾는다() {
+    void resource_디렉터리에_있는_파일의_경로를_찾는다() throws URISyntaxException, MalformedURLException {
         final String fileName = "nextstep.txt";
 
         // todo
-        final String actual = "";
+//        this.getClass().getClassLoader()
+        String actual = FileTest.class.getClassLoader().getResource(fileName).getFile();
+        System.out.println(FileTest.class.getClassLoader().getResource(fileName));
+        URL url = new URL("https://www.naver.com:80/sample/test?id=hanna&pwd=1234");
+        URI uri = FileTest.class.getClassLoader().getResource(fileName).toURI();
+        System.out.println(url.getHost());
+        System.out.println();
+        System.out.println(url.getPort()==-1?80:url.getPort());
+
+
+        System.out.println(url.toURI());
+        System.out.println(url.toURI().getScheme());
+        System.out.println(url.toURI().getPath());
 
         assertThat(actual).endsWith(fileName);
     }
@@ -40,15 +63,17 @@ class FileTest {
      * File, Files 클래스를 사용하여 파일의 내용을 읽어보자.
      */
     @Test
-    void 파일의_내용을_읽는다() {
+    void 파일의_내용을_읽는다() throws IOException, URISyntaxException {
         final String fileName = "nextstep.txt";
 
         // todo
-        final Path path = null;
 
-        // todo
-        final List<String> actual = Collections.emptyList();
+//        final Path path = Paths.get(getClass().getClassLoader().getResource(fileName).toURI());
+        URL url = getClass().getClassLoader().getResource(fileName);
+        URI uri = url.toURI();
+        Path path = Paths.get(uri);
+        List<String> lines = Files.readAllLines(path);
 
-        assertThat(actual).containsOnly("nextstep");
+        assertThat(lines).containsOnly("nextstep");
     }
 }
