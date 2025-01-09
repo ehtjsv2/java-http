@@ -1,8 +1,5 @@
 package org.apache.coyote.http11.request;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class RequestLine {
 
     private static final String REQUEST_LINE_SEPARATOR = " ";
@@ -17,5 +14,12 @@ public class RequestLine {
 
     public boolean isDefaultPath() {
         return path.equals("/");
+    }
+
+    public boolean isStaticResourceRequest() {
+        if (path.endsWith(".html") || path.endsWith(".css") || path.endsWith(".js")) {
+            return true;
+        }
+        return false;
     }
 }

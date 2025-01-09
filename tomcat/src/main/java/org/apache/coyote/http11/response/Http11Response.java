@@ -1,4 +1,6 @@
-package org.apache.coyote.http11;
+package org.apache.coyote.http11.response;
+
+import org.apache.coyote.http11.StatusCode;
 
 public class Http11Response {
 
@@ -14,21 +16,17 @@ public class Http11Response {
     }
 
     public byte[] getBytes() {
-        return String.join("\r\n",
-                        getStatusLine(),
-                        getHeader(),
-                        "", body)
-                .getBytes();
+        return String.join(" \r\n", getStatusLine(), getHeader(), "" , body).getBytes();
     }
 
     private String getStatusLine() {
-        return String.join(" ", httpVersion, statusCode.name(), String.valueOf(statusCode.getCodeNumber()));
+        return String.join(" ", httpVersion, String.valueOf(statusCode.getCodeNumber()), statusCode.name());
     }
 
     private String getHeader() {
-        return String.join("\r\n",
+        return String.join(" \r\n",
                 "Content-Type: " + contentType,
-                "Content-Length: " + body.getBytes().length
+                "Content-Length: " + body.length()
         );
 
     }

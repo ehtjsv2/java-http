@@ -54,7 +54,7 @@ class Http11ProcessorTest {
         var expected = "HTTP/1.1 200 OK \r\n" +
                 "Content-Type: text/html;charset=utf-8 \r\n" +
                 "Content-Length: "+body.length()+" \r\n" +
-                "\r\n"+body
+                " \r\n"+body
                 ;
 
         assertThat(socket.output()).isEqualTo(expected);

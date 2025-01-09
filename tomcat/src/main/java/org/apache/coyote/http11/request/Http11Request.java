@@ -11,4 +11,8 @@ public class Http11Request {
     public boolean isDefaultPath() {
         return requestLine.isDefaultPath();
     }
+
+    public boolean isStaticResourceRequest(){
+        return requestLine.isStaticResourceRequest();
+    }
 }
