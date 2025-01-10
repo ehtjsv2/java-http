@@ -26,7 +26,7 @@ public class Http11StaticResourceProcessor {
         Http11Response http11Response = null;
 
         try {
-            final URL resource = getClass().getClassLoader().getResource("static/index.html");
+            URL resource = getClass().getClassLoader().getResource(http11Request.getPath());
             String body = new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
             System.out.println(body.length());
             http11Response = new Http11ResponseBuilder()

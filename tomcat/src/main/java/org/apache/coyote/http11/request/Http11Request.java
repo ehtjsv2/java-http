@@ -15,4 +15,8 @@ public class Http11Request {
     public boolean isStaticResourceRequest(){
         return requestLine.isStaticResourceRequest();
     }
+
+    public String getPath() {
+        return requestLine.getPath();
+    }
 }

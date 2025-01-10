@@ -1,25 +1,27 @@
 package org.apache.coyote.http11.request;
 
+
 public class RequestLine {
 
     private static final String REQUEST_LINE_SEPARATOR = " ";
     private final Method method;
-    private final String path;
+    private final Path path;
 
     public RequestLine(String requestLine) {
         String[] splitRequestLine = requestLine.split(REQUEST_LINE_SEPARATOR);
         this.method = Method.valueOf(splitRequestLine[0]);
-        this.path = splitRequestLine[1];
+        this.path = new Path(splitRequestLine[1]);
     }
 
     public boolean isDefaultPath() {
-        return path.equals("/");
+        return path.isDefaultPath();
     }
 
     public boolean isStaticResourceRequest() {
-        if (path.endsWith(".html") || path.endsWith(".css") || path.endsWith(".js")) {
-            return true;
-        }
-        return false;
+        return path.isExistExtension();
+    }
+
+    public String getPath() {
+        return path.getValue();
     }
 }
