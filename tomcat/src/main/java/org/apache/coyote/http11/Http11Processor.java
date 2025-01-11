@@ -39,7 +39,7 @@ public class Http11Processor implements Runnable, Processor {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String requestLine = br.readLine();
             Http11Request http11Request = new Http11Request(requestLine);
-            if(http11Request.isStaticResourceRequest()){
+            if(http11Request.isStaticResourceRequest() || http11Request.isDefaultPath()){
                 outputStream.write(http11StaticResourceProcessor.process(http11Request).getBytes());
             }
             else{

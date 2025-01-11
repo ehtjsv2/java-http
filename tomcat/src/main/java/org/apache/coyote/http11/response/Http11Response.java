@@ -30,4 +30,8 @@ public class Http11Response {
         );
 
     }
+
+    public String getBody() {
+        return body;
+    }
 }

@@ -44,4 +44,12 @@ class PathTest {
 
         assertThat(path.isExistExtension()).isFalse();
     }
+
+    @DisplayName("요청경로가 없으면 기본경로로 판단한다.(true)")
+    @Test
+    void isDefaultPath() {
+        Path path = new Path("/");
+
+        assertThat(path.isDefaultPath()).isTrue();
+    }
 }
