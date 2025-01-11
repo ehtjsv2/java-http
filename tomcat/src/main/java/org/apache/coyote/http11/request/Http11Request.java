@@ -23,4 +23,12 @@ public class Http11Request {
     public String getResourceContentType() {
         return requestLine.getResourceContentType();
     }
+
+    public boolean isGetMethod() {
+        return requestLine.isGetMethod();
+    }
+
+    public boolean isPostMethod() {
+        return requestLine.isPostMethod();
+    }
 }

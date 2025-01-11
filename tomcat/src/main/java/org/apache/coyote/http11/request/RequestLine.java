@@ -28,4 +28,12 @@ public class RequestLine {
     public String getResourceContentType() {
         return path.getResourceContentType();
     }
+
+    public boolean isGetMethod() {
+        return method == Method.GET;
+    }
+
+    public boolean isPostMethod() {
+        return method == Method.POST;
+    }
 }

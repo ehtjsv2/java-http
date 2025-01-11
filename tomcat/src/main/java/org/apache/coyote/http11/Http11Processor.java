@@ -1,8 +1,12 @@
 package org.apache.coyote.http11;
 
+import com.techcourse.HandlerMapping;
 import com.techcourse.exception.UncheckedServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import org.apache.catalina.servletcontainer.DispatcherServlet;
 import org.apache.coyote.Processor;
 import org.apache.coyote.http11.request.Http11Request;
 import org.apache.coyote.http11.response.Http11Response;
@@ -19,9 +23,11 @@ public class Http11Processor implements Runnable, Processor {
 
     private final Socket connection;
     private final Http11StaticResourceProcessor http11StaticResourceProcessor;
+    private final DispatcherServlet dispatcherServlet;
 
-    public Http11Processor(Socket connection) {
+    public Http11Processor(Socket connection, HandlerMapping handlerMapping) {
         this.http11StaticResourceProcessor = new Http11StaticResourceProcessor();
+        this.dispatcherServlet = new DispatcherServlet(handlerMapping);
         this.connection = connection;
     }
 
