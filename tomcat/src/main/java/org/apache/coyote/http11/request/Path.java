@@ -36,4 +36,8 @@ public class Path {
     public boolean isDefaultPath() {
         return value.equals("/");
     }
+
+    public String getResourceContentType() {
+        return extension.getContentType();
+    }
 }

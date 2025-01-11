@@ -4,7 +4,7 @@ public class Http11Request {
 
     private final RequestLine requestLine;
 
-    public Http11Request(String request){
+    public Http11Request(String request) {
         requestLine = new RequestLine(request);
     }
 
@@ -12,11 +12,15 @@ public class Http11Request {
         return requestLine.isDefaultPath();
     }
 
-    public boolean isStaticResourceRequest(){
+    public boolean isStaticResourceRequest() {
         return requestLine.isStaticResourceRequest();
     }
 
     public String getPath() {
         return requestLine.getPath();
+    }
+
+    public String getResourceContentType() {
+        return requestLine.getResourceContentType();
     }
 }

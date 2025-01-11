@@ -14,7 +14,7 @@ public class Http11ResponseBuilder {
     }
 
     public Http11ResponseBuilder contentType(String contentType){
-        this.contentType = contentType;
+        this.contentType = contentType+";charset=utf-8";
         return this;
     }
 
