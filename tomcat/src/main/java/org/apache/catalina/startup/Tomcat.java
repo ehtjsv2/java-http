@@ -1,17 +1,23 @@
 package org.apache.catalina.startup;
 
+import java.io.IOException;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.servletcontainer.HandlerMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 public class Tomcat {
 
     private static final Logger log = LoggerFactory.getLogger(Tomcat.class);
 
+    private final HandlerMapping handlerMapping;
+
+    public Tomcat(HandlerMapping handlerMapping) {
+        this.handlerMapping = handlerMapping;
+    }
+
     public void start() {
-        var connector = new Connector();
+        var connector = new Connector(handlerMapping);
         connector.start();
 
         try {
