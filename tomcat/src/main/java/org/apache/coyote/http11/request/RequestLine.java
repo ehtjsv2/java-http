@@ -36,4 +36,8 @@ public class RequestLine {
     public boolean isPostMethod() {
         return method == Method.POST;
     }
+
+    public String getQueryValue(String queryKey) {
+        return path.getQueryValue(queryKey);
+    }
 }

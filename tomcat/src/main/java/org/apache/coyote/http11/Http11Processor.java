@@ -8,7 +8,10 @@ import java.net.Socket;
 import org.apache.catalina.servletcontainer.DispatcherServlet;
 import org.apache.catalina.servletcontainer.HandlerMapping;
 import org.apache.coyote.Processor;
+import org.apache.coyote.http11.request.Extension;
 import org.apache.coyote.http11.request.Http11Request;
+import org.apache.coyote.http11.response.Http11Response;
+import org.apache.coyote.http11.response.Http11ResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,11 +42,15 @@ public class Http11Processor implements Runnable, Processor {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String requestLine = br.readLine();
+            log.info("request :{}", requestLine);
             Http11Request http11Request = new Http11Request(requestLine);
             if (http11Request.isStaticResourceRequest() || http11Request.isDefaultPath()) {
                 outputStream.write(http11StaticResourceProcessor.process(http11Request).getBytes());
             } else {
-
+                Http11Response build = new Http11ResponseBuilder().body("hello world!").statusCode(StatusCode.OK).contentType(
+                        Extension.HTML.getContentType()).build();
+                dispatcherServlet.service(http11Request, build);
+                outputStream.write(build.getBytes());
             }
             outputStream.flush();
         } catch (IOException | UncheckedServletException e) {

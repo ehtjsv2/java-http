@@ -31,4 +31,8 @@ public class Http11Request {
     public boolean isPostMethod() {
         return requestLine.isPostMethod();
     }
+
+    public String getQueryValue(String queryKey) {
+        return requestLine.getQueryValue(queryKey);
+    }
 }

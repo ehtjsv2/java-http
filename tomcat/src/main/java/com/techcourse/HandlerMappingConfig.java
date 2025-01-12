@@ -16,7 +16,7 @@ public enum HandlerMappingConfig {
     public static Servlet getServlet(String requestPath) {
         HandlerMappingConfig[] values = values();
         for (HandlerMappingConfig value : values) {
-            if (value.requestPath.equals(requestPath)) {
+            if (requestPath.startsWith(value.requestPath)) {
                 return value.mappingServlet;
             }
         }

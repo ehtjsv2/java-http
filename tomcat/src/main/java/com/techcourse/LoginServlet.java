@@ -8,7 +8,7 @@ public class LoginServlet extends Http11Servlet {
 
     @Override
     protected void doGet(Http11Request http11Request, Http11Response http11Response) {
-        System.out.println("Login get실행됨");
+        System.out.println(http11Request.getQueryValue("account"));
     }
 
     @Override

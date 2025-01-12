@@ -4,10 +4,20 @@ public class Path {
 
     private final String value;
     private final Extension extension;
+    private final QueryParams queryParams;
 
     public Path(String value) {
         this.value = value;
         this.extension = initExtension(value);
+        this.queryParams = initQueryParams(value);
+    }
+
+    private QueryParams initQueryParams(String path) {
+        if (path.contains("?")) {
+            String[] split = path.split("\\?");
+            return new QueryParams(split[1]);
+        }
+        return null;
     }
 
     private Extension initExtension(String path) {
@@ -39,5 +49,9 @@ public class Path {
 
     public String getResourceContentType() {
         return extension.getContentType();
+    }
+
+    public String getQueryValue(String queryKey) {
+        return  queryParams.getValue(queryKey);
     }
 }
