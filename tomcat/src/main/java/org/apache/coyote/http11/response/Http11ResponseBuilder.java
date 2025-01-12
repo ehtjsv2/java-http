@@ -8,22 +8,22 @@ public class Http11ResponseBuilder {
     private String contentType;
     private String body;
 
-    public Http11ResponseBuilder statusCode(StatusCode statusCode){
+    public Http11ResponseBuilder statusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
         return this;
     }
 
-    public Http11ResponseBuilder contentType(String contentType){
-        this.contentType = contentType+";charset=utf-8";
+    public Http11ResponseBuilder contentType(String contentType) {
+        this.contentType = contentType + ";charset=utf-8";
         return this;
     }
 
-    public Http11ResponseBuilder body(String body){
+    public Http11ResponseBuilder body(String body) {
         this.body = body;
         return this;
     }
 
-    public Http11Response build(){
+    public Http11Response build() {
         return new Http11Response(statusCode, contentType, body);
     }
 }

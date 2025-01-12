@@ -6,7 +6,7 @@ import org.apache.coyote.http11.request.Http11Request;
 
 public class CustomHandlerMapping implements HandlerMapping {
 
-    public Servlet getServlet(Http11Request http11Request){
+    public Servlet getServlet(Http11Request http11Request) {
         return HandlerMappingConfig.getServlet(http11Request.getPath());
     }
 }

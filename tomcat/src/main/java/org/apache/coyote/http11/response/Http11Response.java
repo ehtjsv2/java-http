@@ -16,7 +16,7 @@ public class Http11Response {
     }
 
     public byte[] getBytes() {
-        return (String.join(" \r\n", getStatusLine(), getHeader(),"\r\n")+body).getBytes();
+        return (String.join(" \r\n", getStatusLine(), getHeader(), "\r\n") + body).getBytes();
     }
 
     private String getStatusLine() {
