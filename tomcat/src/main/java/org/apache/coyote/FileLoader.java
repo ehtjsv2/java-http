@@ -15,4 +15,8 @@ public class FileLoader {
             throw new IllegalArgumentException("파일을 불러오는 과정에서 에러가 발생했습니다.: " + resourcePath);
         }
     }
+
+    public static String readStaticResourceAllLine(String staticResourceName) {
+        return readResourceAllLine("static/" + staticResourceName);
+    }
 }
