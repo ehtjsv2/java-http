@@ -3,12 +3,12 @@ package org.apache.coyote.http11.request;
 public class Path {
 
     private final String value;
-    private final Extension extension;
+    private final ContentType contentType;
     private final QueryParams queryParams;
 
     public Path(String value) {
         this.value = value;
-        this.extension = initExtension(value);
+        this.contentType = initExtension(value);
         this.queryParams = initQueryParams(value);
     }
 
@@ -20,23 +20,23 @@ public class Path {
         return null;
     }
 
-    private Extension initExtension(String path) {
+    private ContentType initExtension(String path) {
         String[] splits = path.split("\\.");
         if (splits.length == 2) {
-            return Extension.valueOf(splits[1].toUpperCase());
+            return ContentType.valueOf(splits[1].toUpperCase());
         }
         return null;
     }
 
-    public Extension getExtension() {
-        if (extension == null) {
+    public ContentType getExtension() {
+        if (contentType == null) {
             throw new IllegalArgumentException("확장자가 존재하지 않는 PATH입니다.");
         }
-        return extension;
+        return contentType;
     }
 
     public boolean isExistExtension() {
-        return extension != null;
+        return contentType != null;
     }
 
     public String getValue() {
@@ -47,8 +47,8 @@ public class Path {
         return value.equals("/");
     }
 
-    public String getResourceContentType() {
-        return extension.getContentType();
+    public ContentType getResourceContentType() {
+        return contentType;
     }
 
     public String getQueryValue(String queryKey) {

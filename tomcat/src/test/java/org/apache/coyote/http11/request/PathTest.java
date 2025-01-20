@@ -52,4 +52,15 @@ class PathTest {
 
         assertThat(path.isDefaultPath()).isTrue();
     }
+
+    @DisplayName("쿼리파라미터를 받을 수 있다.")
+    @Test
+    void queryParams() {
+        Path path = new Path("/login?account=gugu&password=1234");
+
+        assertAll(
+                () -> assertThat(path.getQueryValue("account")).isEqualTo("gugu"),
+                () -> assertThat(path.getQueryValue("password")).isEqualTo("1234")
+        );
+    }
 }

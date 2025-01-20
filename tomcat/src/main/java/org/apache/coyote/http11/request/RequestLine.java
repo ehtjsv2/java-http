@@ -25,7 +25,7 @@ public class RequestLine {
         return path.getValue();
     }
 
-    public String getResourceContentType() {
+    public ContentType getResourceContentType() {
         return path.getResourceContentType();
     }
 

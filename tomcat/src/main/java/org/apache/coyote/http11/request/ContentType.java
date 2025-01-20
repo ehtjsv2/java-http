@@ -1,6 +1,6 @@
 package org.apache.coyote.http11.request;
 
-public enum Extension {
+public enum ContentType {
 
     HTML("text/html"),
     CSS("text/css"),
@@ -8,11 +8,11 @@ public enum Extension {
 
     private final String contentType;
 
-    Extension(String contentType) {
+    ContentType(String contentType) {
         this.contentType = contentType;
     }
 
-    public String getContentType() {
+    public String toHttpResponseFormat() {
         return contentType;
     }
 }

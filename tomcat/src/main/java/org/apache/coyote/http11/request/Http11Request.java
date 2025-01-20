@@ -20,7 +20,7 @@ public class Http11Request {
         return requestLine.getPath();
     }
 
-    public String getResourceContentType() {
+    public ContentType getResourceContentType() {
         return requestLine.getResourceContentType();
     }
 
