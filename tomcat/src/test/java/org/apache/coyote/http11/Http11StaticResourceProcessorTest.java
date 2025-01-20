@@ -14,7 +14,8 @@ class Http11StaticResourceProcessorTest {
     @Test
     void defaultPathResponse() {
         Http11StaticResourceProcessor http11StaticResourceProcessor = new Http11StaticResourceProcessor();
-        Http11Response response = http11StaticResourceProcessor.process(new Http11Request("GET / HTTP/1.1"));
+        Http11Response response = Http11Response.createEmptyResponse();
+        http11StaticResourceProcessor.process(new Http11Request("GET / HTTP/1.1"), response);
 
         assertThat(response.getBody()).isEqualTo("Hello world!");
     }

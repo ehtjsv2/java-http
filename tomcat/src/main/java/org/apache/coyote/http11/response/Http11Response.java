@@ -5,14 +5,20 @@ import org.apache.coyote.http11.StatusCode;
 public class Http11Response {
 
     private static final String httpVersion = "HTTP/1.1";
-    private final StatusCode statusCode;
-    private final String contentType;
-    private final String body;
+    private static final String encodingType = "utf-8";
 
-    public Http11Response(StatusCode statusCode, String contentType, String body) {
+    private StatusCode statusCode;
+    private String contentType;
+    private String body;
+
+    private Http11Response(StatusCode statusCode, String contentType, String body) {
         this.statusCode = statusCode;
         this.contentType = contentType;
         this.body = body;
+    }
+
+    public static Http11Response createEmptyResponse() {
+        return new Http11Response(null, null, null);
     }
 
     public byte[] getBytes() {
@@ -25,10 +31,22 @@ public class Http11Response {
 
     private String getHeader() {
         return String.join(" \r\n",
-                "Content-Type: " + contentType,
+                "Content-Type: " + String.join(";", contentType, "charset=" + encodingType),
                 "Content-Length: " + body.length()
         );
 
+    }
+
+    public void setStatusCode(StatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getBody() {
