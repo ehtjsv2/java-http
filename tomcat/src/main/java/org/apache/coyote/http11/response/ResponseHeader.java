@@ -37,4 +37,8 @@ public class ResponseHeader {
         sb.append(CONTENT_LENGTH).append(": ").append(contentLength);
         return sb.toString();
     }
+
+    public String getValue(String key) {
+        return values.get(key);
+    }
 }

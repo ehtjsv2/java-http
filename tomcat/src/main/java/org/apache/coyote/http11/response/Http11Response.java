@@ -54,4 +54,12 @@ public class Http11Response {
                 + body)
                 .getBytes();
     }
+
+    public String getHeaderValue(String key) {
+        return responseHeader.getValue(key);
+    }
+
+    public StatusCode getStatusCode() {
+        return statusCode;
+    }
 }
