@@ -61,4 +61,32 @@ class LoginServletTest {
         // then
         assertThat(response.getStatusCode()).isEqualTo(StatusCode.FOUND);
     }
+
+    @DisplayName("login Post요청시, 로그인 실패하면 401.html 페이지로 리다이렉션한다.")
+    @Test
+    void doPostRedirectionFail() {
+        // given
+        Http11Request request = new Http11Request("POST /login?account=gugu&password=x HTTP/1.1 ");
+        Http11Response response = Http11Response.createEmptyResponse();
+
+        // when
+        loginServlet.doPost(request, response);
+
+        // then
+        assertThat(response.getHeaderValue("Location")).isEqualTo("/401.html");
+    }
+
+    @DisplayName("login Post요청시, 로그인 실패하면 401 UNAUTHORIZED를 응답한다.")
+    @Test
+    void doPostStatusCodeFail() {
+        // given
+        Http11Request request = new Http11Request("POST /login?account=gugu&password=x HTTP/1.1 ");
+        Http11Response response = Http11Response.createEmptyResponse();
+
+        // when
+        loginServlet.doPost(request, response);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(StatusCode.UNAUTHORIZED);
+    }
 }
