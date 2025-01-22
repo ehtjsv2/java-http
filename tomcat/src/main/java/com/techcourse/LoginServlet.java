@@ -1,5 +1,6 @@
 package com.techcourse;
 
+import com.techcourse.db.InMemoryUserRepository;
 import org.apache.catalina.servletcontainer.Http11Servlet;
 import org.apache.coyote.FileLoader;
 import org.apache.coyote.http11.StatusCode;
@@ -18,6 +19,21 @@ public class LoginServlet extends Http11Servlet {
 
     @Override
     protected void doPost(Http11Request http11Request, Http11Response http11Response) {
+        String account = http11Request.getQueryValue("account");
+        String password = http11Request.getQueryValue("password");
+        InMemoryUserRepository.findByAccount(account)
+                .filter(user -> user.checkPassword(password))
+                .ifPresentOrElse(
+                        (user) -> processLoginSuccess(http11Response),
+                        () -> processLoginFail(http11Response)
+                );
+    }
 
+    private void processLoginSuccess(Http11Response http11Response) {
+        http11Response.setStatusCode(StatusCode.FOUND);
+        http11Response.sendRedirection("/index.html");
+    }
+
+    private void processLoginFail(Http11Response http11Response) {
     }
 }
