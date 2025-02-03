@@ -9,6 +9,7 @@ import org.apache.catalina.servletcontainer.DispatcherServlet;
 import org.apache.catalina.servletcontainer.HandlerMapping;
 import org.apache.coyote.Processor;
 import org.apache.coyote.http11.request.Http11Request;
+import org.apache.coyote.http11.request.HttpRequestReader;
 import org.apache.coyote.http11.response.Http11Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +39,8 @@ public class Http11Processor implements Runnable, Processor {
         try (final var inputStream = connection.getInputStream();
              final var outputStream = connection.getOutputStream()) {
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            String requestLine = br.readLine();
-            log.info("request :{}", requestLine);
-            Http11Request http11Request = new Http11Request(requestLine);
+            HttpRequestReader httpRequestReader = new HttpRequestReader();
+            Http11Request http11Request = httpRequestReader.createHttp11Request(inputStream);
             Http11Response http11Response = Http11Response.createEmptyResponse();
             if (http11Request.isStaticResourceRequest() || http11Request.isDefaultPath()) {
                 http11StaticResourceProcessor.process(http11Request, http11Response);

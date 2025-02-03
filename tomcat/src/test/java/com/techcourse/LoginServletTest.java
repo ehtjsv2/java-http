@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.apache.coyote.FileLoader;
 import org.apache.coyote.http11.StatusCode;
 import org.apache.coyote.http11.request.Http11Request;
+import org.apache.coyote.http11.request.RequestLine;
 import org.apache.coyote.http11.response.Http11Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ class LoginServletTest {
     private LoginServlet loginServlet;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         loginServlet = new LoginServlet();
     }
 
@@ -24,7 +25,7 @@ class LoginServletTest {
     @Test
     void doGet() {
         // given
-        Http11Request request = new Http11Request("GET /login HTTP/1.1 ");
+        Http11Request request = new Http11Request(new RequestLine("GET /login HTTP/1.1 "), null);
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when
@@ -38,7 +39,10 @@ class LoginServletTest {
     @Test
     void doPostRedirection() {
         // given
-        Http11Request request = new Http11Request("POST /login?account=gugu&password=password HTTP/1.1 ");
+        Http11Request request = new Http11Request(
+                new RequestLine("POST /login?account=gugu&password=password HTTP/1.1 "),
+                null
+        );
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when
@@ -52,7 +56,10 @@ class LoginServletTest {
     @Test
     void doPostStatusCode() {
         // given
-        Http11Request request = new Http11Request("POST /login?account=gugu&password=password HTTP/1.1 ");
+        Http11Request request = new Http11Request(
+                new RequestLine("POST /login?account=gugu&password=password HTTP/1.1 ")
+                , null
+        );
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when
@@ -66,7 +73,10 @@ class LoginServletTest {
     @Test
     void doPostRedirectionFail() {
         // given
-        Http11Request request = new Http11Request("POST /login?account=gugu&password=x HTTP/1.1 ");
+        Http11Request request = new Http11Request(
+                new RequestLine("POST /login?account=gugu&password=x HTTP/1.1 "),
+                null
+        );
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when
@@ -80,7 +90,10 @@ class LoginServletTest {
     @Test
     void doPostStatusCodeFail() {
         // given
-        Http11Request request = new Http11Request("POST /login?account=gugu&password=x HTTP/1.1 ");
+        Http11Request request = new Http11Request(
+                new RequestLine("POST /login?account=gugu&password=x HTTP/1.1 "),
+                null
+        );
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when

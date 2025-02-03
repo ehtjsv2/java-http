@@ -3,9 +3,16 @@ package org.apache.coyote.http11.request;
 public class Http11Request {
 
     private final RequestLine requestLine;
+    private final RequestHeader requestHeader;
 
     public Http11Request(String request) {
-        requestLine = new RequestLine(request);
+        this.requestLine = new RequestLine(request);
+        this.requestHeader = null;
+    }
+
+    public Http11Request(RequestLine requestLine, RequestHeader requestHeader) {
+        this.requestLine = requestLine;
+        this.requestHeader = requestHeader;
     }
 
     public boolean isDefaultPath() {

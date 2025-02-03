@@ -1,13 +1,19 @@
 package org.apache.coyote.http11.request;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RequestLine {
+
+    private static final Logger log = LoggerFactory.getLogger(RequestLine.class);
 
     private static final String REQUEST_LINE_SEPARATOR = " ";
     private final Method method;
     private final Path path;
 
     public RequestLine(String requestLine) {
+        log.info(requestLine);
         String[] splitRequestLine = requestLine.split(REQUEST_LINE_SEPARATOR);
         this.method = Method.valueOf(splitRequestLine[0]);
         this.path = new Path(splitRequestLine[1]);
