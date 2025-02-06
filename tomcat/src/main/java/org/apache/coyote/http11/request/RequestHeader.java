@@ -15,6 +15,7 @@ public class RequestHeader {
         String[] splitHeader = requestHeader.split("\r\n");
         for (String header : splitHeader) {
             String[] splitEntry = header.split(": ");
+            System.out.println(splitEntry[0]);
             headerMap.put(splitEntry[0], splitEntry[1].trim());
         }
         this.values = headerMap;
@@ -24,7 +25,22 @@ public class RequestHeader {
         return values.get(key);
     }
 
-    public Long getContentLength() {
-        return Long.parseLong(values.get("Content-Length"));
+    public int getContentLength() {
+        return Integer.parseInt(values.get("Content-Length"));
+    }
+
+    public boolean isJsonContentType() {
+        if (existContentType()) {
+            return getContentType() == ContentType.JSON;
+        }
+        return false;
+    }
+
+    private boolean existContentType() {
+        return values.get("Content-Type") != null;
+    }
+
+    private ContentType getContentType() {
+        return ContentType.fromHttpFormat(values.get("Content-Type"));
     }
 }

@@ -41,4 +41,17 @@ class RequestHeaderTest {
 
         assertThat(requestHeader.getContentLength()).isEqualTo(25);
     }
+
+    @DisplayName("Content Type을 얻을 수 있다.")
+    @Test
+    void getContentType() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        assertThat(requestHeader.getValue("Content-Type")).isEqualTo("text/html;charset=utf-8");
+    }
 }

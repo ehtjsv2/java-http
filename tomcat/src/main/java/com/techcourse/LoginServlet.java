@@ -19,8 +19,8 @@ public class LoginServlet extends Http11Servlet {
 
     @Override
     protected void doPost(Http11Request http11Request, Http11Response http11Response) {
-        String account = http11Request.getQueryValue("account");
-        String password = http11Request.getQueryValue("password");
+        String account = http11Request.getBodyValue("account");
+        String password = http11Request.getBodyValue("password");
         InMemoryUserRepository.findByAccount(account)
                 .filter(user -> user.checkPassword(password))
                 .ifPresentOrElse(

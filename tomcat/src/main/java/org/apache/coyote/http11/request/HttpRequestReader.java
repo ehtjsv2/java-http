@@ -11,18 +11,19 @@ public class HttpRequestReader {
 
     private static final Logger log = LoggerFactory.getLogger(HttpRequestReader.class);
 
-    public HttpRequestReader(){
+    public HttpRequestReader() {
 
     }
 
-    public Http11Request createHttp11Request(InputStream inputStream){
-        try{
+    public Http11Request createHttp11Request(InputStream inputStream) {
+        try {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             RequestLine requestLine = new RequestLine(br.readLine());
             RequestHeader requestHeader = getHeader(br);
-            return new Http11Request(requestLine,requestHeader);
+            RequestBody requestBody = getBody(br, requestHeader);
+            return new Http11Request(requestLine, requestHeader, null);
         } catch (IOException e) {
-            throw new IllegalArgumentException("잘못된 Http11Request 형식입니다",e);
+            throw new IllegalArgumentException("잘못된 Http11Request 형식입니다", e);
         }
     }
 
@@ -30,9 +31,18 @@ public class HttpRequestReader {
         String header = "";
         String line;
         while (!(line = br.readLine()).isEmpty()) {
-            header+=line+System.lineSeparator();
+            header += line + System.lineSeparator();
         }
-        log.info(header);
+        log.info("\n{}", header);
         return new RequestHeader(header);
+    }
+
+    private RequestBody getBody(BufferedReader br, RequestHeader requestHeader) throws IOException {
+        if(!requestHeader.isJsonContentType()){
+            return null;
+        }
+        char[] requestBodyBuffer = new char[requestHeader.getContentLength()];
+        br.read(requestBodyBuffer, 0, requestHeader.getContentLength());
+        return new RequestBody(new String(requestBodyBuffer));
     }
 }

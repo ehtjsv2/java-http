@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.apache.coyote.FileLoader;
 import org.apache.coyote.http11.StatusCode;
 import org.apache.coyote.http11.request.Http11Request;
+import org.apache.coyote.http11.request.RequestBody;
 import org.apache.coyote.http11.request.RequestLine;
 import org.apache.coyote.http11.response.Http11Response;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class LoginServletTest {
     @Test
     void doGet() {
         // given
-        Http11Request request = new Http11Request(new RequestLine("GET /login HTTP/1.1 "), null);
+        Http11Request request = new Http11Request(new RequestLine("GET /login HTTP/1.1 "), null, null);
         Http11Response response = Http11Response.createEmptyResponse();
 
         // when
@@ -40,8 +41,14 @@ class LoginServletTest {
     void doPostRedirection() {
         // given
         Http11Request request = new Http11Request(
-                new RequestLine("POST /login?account=gugu&password=password HTTP/1.1 "),
-                null
+                new RequestLine("POST /login HTTP/1.1 "),
+                null,
+                new RequestBody("""
+                        {
+                            "account": "gugu",
+                            "password": "password"
+                        }
+                        """)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -57,8 +64,14 @@ class LoginServletTest {
     void doPostStatusCode() {
         // given
         Http11Request request = new Http11Request(
-                new RequestLine("POST /login?account=gugu&password=password HTTP/1.1 ")
-                , null
+                new RequestLine("POST /login HTTP/1.1 "),
+                null,
+                new RequestBody("""
+                        {
+                            "account": "gugu",
+                            "password": "password"
+                        }
+                        """)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -74,8 +87,14 @@ class LoginServletTest {
     void doPostRedirectionFail() {
         // given
         Http11Request request = new Http11Request(
-                new RequestLine("POST /login?account=gugu&password=x HTTP/1.1 "),
-                null
+                new RequestLine("POST /login HTTP/1.1 "),
+                null,
+                new RequestBody("""
+                        {
+                            "account": "gugu",
+                            "password": "x"
+                        }
+                        """)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -91,8 +110,14 @@ class LoginServletTest {
     void doPostStatusCodeFail() {
         // given
         Http11Request request = new Http11Request(
-                new RequestLine("POST /login?account=gugu&password=x HTTP/1.1 "),
-                null
+                new RequestLine("POST /login HTTP/1.1 "),
+                null,
+                new RequestBody("""
+                        {
+                            "account": "gugu",
+                            "password": "x"
+                        }
+                        """)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
