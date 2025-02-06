@@ -2,9 +2,6 @@ package org.apache.coyote.http11.request;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.coyote.http11.Http11Processor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RequestHeader {
 
@@ -15,7 +12,6 @@ public class RequestHeader {
         String[] splitHeader = requestHeader.split("\r\n");
         for (String header : splitHeader) {
             String[] splitEntry = header.split(": ");
-            System.out.println(splitEntry[0]);
             headerMap.put(splitEntry[0], splitEntry[1].trim());
         }
         this.values = headerMap;
