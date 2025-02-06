@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.apache.coyote.FileLoader;
 import org.apache.coyote.http11.StatusCode;
+import org.apache.coyote.http11.request.ContentType;
 import org.apache.coyote.http11.request.Http11Request;
 import org.apache.coyote.http11.request.RequestBody;
 import org.apache.coyote.http11.request.RequestLine;
@@ -48,7 +49,7 @@ class LoginServletTest {
                             "account": "gugu",
                             "password": "password"
                         }
-                        """)
+                        """, ContentType.JSON)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -71,7 +72,7 @@ class LoginServletTest {
                             "account": "gugu",
                             "password": "password"
                         }
-                        """)
+                        """, ContentType.JSON)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -94,7 +95,7 @@ class LoginServletTest {
                             "account": "gugu",
                             "password": "x"
                         }
-                        """)
+                        """, ContentType.JSON)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 
@@ -117,7 +118,7 @@ class LoginServletTest {
                             "account": "gugu",
                             "password": "x"
                         }
-                        """)
+                        """, ContentType.JSON)
         );
         Http11Response response = Http11Response.createEmptyResponse();
 

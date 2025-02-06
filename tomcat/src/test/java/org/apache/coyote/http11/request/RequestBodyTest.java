@@ -15,12 +15,26 @@ class RequestBodyTest {
         // given
         String input = """
                 {
-                    "name": "ehtjs"
+                    "name": "ehtjs",
+                    "password": "password"
                 }
                 """;
 
         // when
-        RequestBody requestBody = new RequestBody(input);
+        RequestBody requestBody = new RequestBody(input, ContentType.JSON);
+
+        // then
+        assertThat(requestBody.getValue("name")).isEqualTo("ehtjs");
+    }
+
+    @DisplayName("UrlEncoded타입의 Body를 Map으로 변환할 수 있다.")
+    @Test
+    void createUrlEncodedBody() {
+        // given
+        String input = "name=ehtjs&password=password";
+
+        // when
+        RequestBody requestBody = new RequestBody(input, ContentType.X_WWW_FORM_URLENCODED);
 
         // then
         assertThat(requestBody.getValue("name")).isEqualTo("ehtjs");

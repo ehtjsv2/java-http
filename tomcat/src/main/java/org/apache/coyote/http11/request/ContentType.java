@@ -5,7 +5,8 @@ public enum ContentType {
     HTML("text/html"),
     CSS("text/css"),
     JS("text/javascript"),
-    JSON("application/json");
+    JSON("application/json"),
+    X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded");
 
     private final String contentType;
 

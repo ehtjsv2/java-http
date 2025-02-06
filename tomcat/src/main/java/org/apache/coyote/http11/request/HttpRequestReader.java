@@ -33,16 +33,15 @@ public class HttpRequestReader {
         while (!(line = br.readLine()).isEmpty()) {
             header += line + System.lineSeparator();
         }
-        log.info("\n{}", header);
         return new RequestHeader(header);
     }
 
     private RequestBody getBody(BufferedReader br, RequestHeader requestHeader) throws IOException {
-        if(!requestHeader.isJsonContentType()){
+        if (!requestHeader.existContentType()) {
             return null;
         }
         char[] requestBodyBuffer = new char[requestHeader.getContentLength()];
         br.read(requestBodyBuffer, 0, requestHeader.getContentLength());
-        return new RequestBody(new String(requestBodyBuffer));
+        return new RequestBody(new String(requestBodyBuffer), requestHeader.getContentType());
     }
 }
