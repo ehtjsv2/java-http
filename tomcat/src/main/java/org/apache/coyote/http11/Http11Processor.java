@@ -2,6 +2,8 @@ package org.apache.coyote.http11;
 
 import com.techcourse.exception.UncheckedServletException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import org.apache.catalina.servletcontainer.DispatcherServlet;
 import org.apache.catalina.servletcontainer.HandlerMapping;
@@ -33,9 +35,9 @@ public class Http11Processor implements Runnable, Processor {
     }
 
     @Override
-    public void process(final Socket connection) {
-        try (final var inputStream = connection.getInputStream();
-             final var outputStream = connection.getOutputStream()) {
+    public void process(Socket connection) {
+        try (InputStream inputStream = connection.getInputStream();
+             OutputStream outputStream = connection.getOutputStream()) {
 
             HttpRequestReader httpRequestReader = new HttpRequestReader();
             Http11Request http11Request = httpRequestReader.createHttp11Request(inputStream);

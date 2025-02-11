@@ -24,16 +24,16 @@ public class Connector implements Runnable {
         this(handlerMapping, DEFAULT_PORT, DEFAULT_ACCEPT_COUNT);
     }
 
-    public Connector(HandlerMapping handlerMapping, final int port, final int acceptCount) {
+    public Connector(HandlerMapping handlerMapping, int port, int acceptCount) {
         this.handlerMapping = handlerMapping;
         this.serverSocket = createServerSocket(port, acceptCount);
         this.stopped = false;
     }
 
-    private ServerSocket createServerSocket(final int port, final int acceptCount) {
+    private ServerSocket createServerSocket(int port, int acceptCount) {
         try {
-            final int checkedPort = checkPort(port);
-            final int checkedAcceptCount = checkAcceptCount(acceptCount);
+            int checkedPort = checkPort(port);
+            int checkedAcceptCount = checkAcceptCount(acceptCount);
             return new ServerSocket(checkedPort, checkedAcceptCount);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -41,7 +41,7 @@ public class Connector implements Runnable {
     }
 
     public void start() {
-        var thread = new Thread(this);
+        Thread thread = new Thread(this);
         thread.setDaemon(true);
         thread.start();
         stopped = false;
@@ -64,11 +64,11 @@ public class Connector implements Runnable {
         }
     }
 
-    private void process(final Socket connection) {
+    private void process(Socket connection) {
         if (connection == null) {
             return;
         }
-        var processor = new Http11Processor(connection, handlerMapping);
+        Http11Processor processor = new Http11Processor(connection, handlerMapping);
         new Thread(processor).start();
     }
 
@@ -81,9 +81,9 @@ public class Connector implements Runnable {
         }
     }
 
-    private int checkPort(final int port) {
-        final var MIN_PORT = 1;
-        final var MAX_PORT = 65535;
+    private int checkPort(int port) {
+        int MIN_PORT = 1;
+        int MAX_PORT = 65535;
 
         if (port < MIN_PORT || MAX_PORT < port) {
             return DEFAULT_PORT;
@@ -91,7 +91,7 @@ public class Connector implements Runnable {
         return port;
     }
 
-    private int checkAcceptCount(final int acceptCount) {
+    private int checkAcceptCount(int acceptCount) {
         return Math.max(acceptCount, DEFAULT_ACCEPT_COUNT);
     }
 }
