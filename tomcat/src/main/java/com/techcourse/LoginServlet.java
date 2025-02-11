@@ -35,7 +35,7 @@ public class LoginServlet extends Http11Servlet {
     }
 
     private void processLoginFail(Http11Response http11Response) {
-        http11Response.setStatusCode(StatusCode.UNAUTHORIZED);
+        http11Response.setStatusCode(StatusCode.FOUND);
         http11Response.sendRedirection("/401.html");
     }
 }

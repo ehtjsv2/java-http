@@ -126,6 +126,6 @@ class LoginServletTest {
         loginServlet.doPost(request, response);
 
         // then
-        assertThat(response.getStatusCode()).isEqualTo(StatusCode.UNAUTHORIZED);
+        assertThat(response.getStatusCode()).isEqualTo(StatusCode.FOUND);
     }
 }
