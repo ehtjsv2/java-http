@@ -46,6 +46,13 @@ public class Http11Response {
     }
 
     public byte[] getBytes() {
+        if(body==null){
+            return (String.join(
+                    " \r\n",
+                    getStatusLine(),
+                    responseHeader.toHttpResponseFormat(),
+                    "\r\n")).getBytes();
+        }
         return (String.join(
                 " \r\n",
                 getStatusLine(),

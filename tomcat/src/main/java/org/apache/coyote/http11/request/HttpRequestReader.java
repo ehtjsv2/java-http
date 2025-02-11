@@ -21,7 +21,7 @@ public class HttpRequestReader {
             RequestLine requestLine = new RequestLine(br.readLine());
             RequestHeader requestHeader = getHeader(br);
             RequestBody requestBody = getBody(br, requestHeader);
-            return new Http11Request(requestLine, requestHeader, null);
+            return new Http11Request(requestLine, requestHeader, requestBody);
         } catch (IOException e) {
             throw new IllegalArgumentException("잘못된 Http11Request 형식입니다", e);
         }

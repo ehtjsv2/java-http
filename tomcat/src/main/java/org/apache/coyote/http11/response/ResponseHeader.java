@@ -29,13 +29,16 @@ public class ResponseHeader {
         values.put(LOCATION, location);
     }
 
-    public String toHttpResponseFormat(int contentLength) {
+    public String toHttpResponseFormat() {
         StringBuilder sb = new StringBuilder();
         for (Entry<String, String> header : values.entrySet()) {
             sb.append(header.getKey()).append(": ").append(header.getValue()).append(" \r\n");
         }
-        sb.append(CONTENT_LENGTH).append(": ").append(contentLength);
         return sb.toString();
+    }
+
+    public String toHttpResponseFormat(int contentLength) {
+        return toHttpResponseFormat() + CONTENT_LENGTH + ": " + contentLength;
     }
 
     public String getValue(String key) {
