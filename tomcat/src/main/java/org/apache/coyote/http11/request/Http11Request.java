@@ -40,6 +40,10 @@ public class Http11Request {
         return requestLine.getQueryValue(queryKey);
     }
 
+    public String getCookie(String key){
+        return requestHeader.getCookie(key);
+    }
+
     public String getBodyValue(String key) {
         return requestBody.getValue(key);
     }

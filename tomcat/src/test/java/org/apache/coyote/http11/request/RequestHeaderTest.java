@@ -54,4 +54,32 @@ class RequestHeaderTest {
 
         assertThat(requestHeader.getValue("Content-Type")).isEqualTo("text/html;charset=utf-8");
     }
+
+    @DisplayName("cookie를 얻을 수 있다.")
+    @Test
+    void getCookie() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Cookie: tasty_cookie=strawberry; JSESSIONID=656cef62-e3c4-40bc-a8df-94732920ed46 ",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        assertThat(requestHeader.getCookie("JSESSIONID")).isEqualTo("656cef62-e3c4-40bc-a8df-94732920ed46");
+    }
+
+    @DisplayName("cookie key가 존재하지 않으면 null을 반환한다.")
+    @Test
+    void getCookie_null_when_has_not_key() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Cookie: tasty_cookie=strawberry",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        assertThat(requestHeader.getCookie("JSESSIONID")).isNull();
+    }
 }

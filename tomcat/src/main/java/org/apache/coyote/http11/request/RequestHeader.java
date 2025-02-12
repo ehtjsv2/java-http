@@ -44,4 +44,16 @@ public class RequestHeader {
     public ContentType getContentType() {
         return ContentType.fromHttpFormat(values.get("Content-Type"));
     }
+
+    public String getCookie(String key){
+        String cookies = values.get("Cookie");
+        String[] splitCookieEntries = cookies.split("; ");
+        for (String cookieEntry : splitCookieEntries) {
+            String[] splitCookieEntry= cookieEntry.split("=");
+            if(splitCookieEntry[0].equals(key)){
+                return splitCookieEntry[1].trim();
+            }
+        }
+        return null;
+    }
 }
