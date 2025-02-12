@@ -62,6 +62,10 @@ public class Http11Response {
                 .getBytes();
     }
 
+    public void addCookie(String key, String value){
+        responseHeader.addCookie(key,value);
+    }
+
     public String getHeaderValue(String key) {
         return responseHeader.getValue(key);
     }
