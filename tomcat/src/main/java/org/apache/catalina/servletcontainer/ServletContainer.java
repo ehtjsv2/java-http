@@ -3,11 +3,11 @@ package org.apache.catalina.servletcontainer;
 import org.apache.coyote.http11.request.Http11Request;
 import org.apache.coyote.http11.response.Http11Response;
 
-public class DispatcherServlet {
+public class ServletContainer {
 
     private final HandlerMapping handlerMapping;
 
-    public DispatcherServlet(HandlerMapping handlerMapping) {
+    public ServletContainer(HandlerMapping handlerMapping) {
         this.handlerMapping = handlerMapping;
     }
 

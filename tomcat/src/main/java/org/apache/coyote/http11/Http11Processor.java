@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import org.apache.catalina.servletcontainer.DispatcherServlet;
+import org.apache.catalina.servletcontainer.ServletContainer;
 import org.apache.catalina.servletcontainer.HandlerMapping;
 import org.apache.coyote.Processor;
 import org.apache.coyote.http11.request.Http11Request;
@@ -20,11 +20,11 @@ public class Http11Processor implements Runnable, Processor {
 
     private final Socket connection;
     private final Http11StaticResourceProcessor http11StaticResourceProcessor;
-    private final DispatcherServlet dispatcherServlet;
+    private final ServletContainer servletContainer;
 
     public Http11Processor(Socket connection, HandlerMapping handlerMapping) {
         this.http11StaticResourceProcessor = new Http11StaticResourceProcessor();
-        this.dispatcherServlet = new DispatcherServlet(handlerMapping);
+        this.servletContainer = new ServletContainer(handlerMapping);
         this.connection = connection;
     }
 
@@ -45,7 +45,7 @@ public class Http11Processor implements Runnable, Processor {
             if (http11Request.isStaticResourceRequest() || http11Request.isDefaultPath()) {
                 http11StaticResourceProcessor.process(http11Request, http11Response);
             } else {
-                dispatcherServlet.service(http11Request, http11Response);
+                servletContainer.service(http11Request, http11Response);
             }
             outputStream.write(http11Response.getBytes());
             outputStream.flush();
