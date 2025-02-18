@@ -52,6 +52,6 @@ public class Path {
     }
 
     public String getQueryValue(String queryKey) {
-        return  queryParams.getValue(queryKey);
+        return queryParams.getValue(queryKey);
     }
 }

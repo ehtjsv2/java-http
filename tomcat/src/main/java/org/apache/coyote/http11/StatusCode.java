@@ -4,8 +4,7 @@ public enum StatusCode {
 
     OK(200),
     FOUND(302),
-    UNAUTHORIZED(401)
-    ;
+    UNAUTHORIZED(401);
 
     private final int codeNumber;
 

@@ -1,7 +1,6 @@
 package org.apache.coyote.http11;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.apache.coyote.http11.request.Http11Request;
 import org.apache.coyote.http11.request.RequestLine;
@@ -16,7 +15,8 @@ class Http11StaticResourceProcessorTest {
     void defaultPathResponse() {
         Http11StaticResourceProcessor http11StaticResourceProcessor = new Http11StaticResourceProcessor();
         Http11Response response = Http11Response.createEmptyResponse();
-        http11StaticResourceProcessor.process(new Http11Request(new RequestLine("GET / HTTP/1.1"), null, null), response);
+        http11StaticResourceProcessor.process(new Http11Request(new RequestLine("GET / HTTP/1.1"), null, null),
+                response);
 
         assertThat(response.getBody()).isEqualTo("Hello world!");
     }

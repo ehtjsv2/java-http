@@ -50,12 +50,12 @@ public class ResponseHeader {
         values.put(RESPONSE_HEADER_COOKIE_KEY, key + "=" + value);
     }
 
-    public String getCookie(String key){
+    public String getCookie(String key) {
         String cookies = values.get(RESPONSE_HEADER_COOKIE_KEY);
         String[] splitCookieEntries = cookies.split("; ");
         for (String cookieEntry : splitCookieEntries) {
-            String[] splitCookieEntry= cookieEntry.split("=");
-            if(splitCookieEntry[0].equals(key)){
+            String[] splitCookieEntry = cookieEntry.split("=");
+            if (splitCookieEntry[0].equals(key)) {
                 return splitCookieEntry[1].trim();
             }
         }

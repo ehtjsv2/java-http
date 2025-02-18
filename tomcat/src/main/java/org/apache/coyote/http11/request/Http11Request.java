@@ -56,10 +56,10 @@ public class Http11Request {
     public Session getSession(boolean create) {
         SessionManager sessionManager = SessionManager.getInstance();
         Session session = sessionManager.findSession(getCookie("JSESSIONID"));
-        if(session == null && create == true){
+        if (session == null && create == true) {
             String uuid = UUID.randomUUID().toString();
             Session jSession = new Session(uuid);
-            requestHeader.setCookie("JESSIONID",uuid);
+            requestHeader.setCookie("JESSIONID", uuid);
             sessionManager.add(jSession);
             return jSession;
         }

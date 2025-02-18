@@ -18,7 +18,8 @@ public class Http11StaticResourceProcessor {
         } else {
             http11Response.setStatusCode(StatusCode.OK);
             http11Response.setContentType(http11Request.getResourceContentType());
-            http11Response.setBody(FileLoader.readResourceAllLine(STATIC_RESOURCE_PREFIX_PATH + http11Request.getPath()));
+            http11Response.setBody(
+                    FileLoader.readResourceAllLine(STATIC_RESOURCE_PREFIX_PATH + http11Request.getPath()));
         }
     }
 }

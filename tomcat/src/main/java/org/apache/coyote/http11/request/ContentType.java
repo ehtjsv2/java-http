@@ -16,7 +16,7 @@ public enum ContentType {
 
     public static ContentType fromHttpFormat(String httpFormatContentType) {
         for (ContentType value : values()) {
-            if(value.contentType.equals(httpFormatContentType)){
+            if (value.contentType.equals(httpFormatContentType)) {
                 return value;
             }
         }

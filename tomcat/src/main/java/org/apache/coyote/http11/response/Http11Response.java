@@ -46,7 +46,7 @@ public class Http11Response {
     }
 
     public byte[] getBytes() {
-        if(body==null){
+        if (body == null) {
             return (String.join(
                     " \r\n",
                     getStatusLine(),
@@ -62,8 +62,8 @@ public class Http11Response {
                 .getBytes();
     }
 
-    public void addCookie(String key, String value){
-        responseHeader.addCookie(key,value);
+    public void addCookie(String key, String value) {
+        responseHeader.addCookie(key, value);
     }
 
     public String getHeaderValue(String key) {

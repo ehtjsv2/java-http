@@ -23,12 +23,11 @@ public class RequestHeader {
     }
 
     public void setCookie(String key, String value) {
-        String cookieValue = key+"="+value;
-        if(!values.containsKey("Cookie")){
-            values.put("Cookie",cookieValue);
-        }
-        else{
-            values.put("Cookie",values.get("Cookie")+"; "+cookieValue);
+        String cookieValue = key + "=" + value;
+        if (!values.containsKey("Cookie")) {
+            values.put("Cookie", cookieValue);
+        } else {
+            values.put("Cookie", values.get("Cookie") + "; " + cookieValue);
         }
     }
 
@@ -55,15 +54,15 @@ public class RequestHeader {
         return ContentType.fromHttpFormat(values.get("Content-Type"));
     }
 
-    public String getCookie(String key){
-        if(!values.containsKey("Cookie")){
+    public String getCookie(String key) {
+        if (!values.containsKey("Cookie")) {
             return null;
         }
         String cookies = values.get("Cookie");
         String[] splitCookieEntries = cookies.split("; ");
         for (String cookieEntry : splitCookieEntries) {
-            String[] splitCookieEntry= cookieEntry.split("=");
-            if(splitCookieEntry[0].equals(key)){
+            String[] splitCookieEntry = cookieEntry.split("=");
+            if (splitCookieEntry[0].equals(key)) {
                 return splitCookieEntry[1].trim();
             }
         }

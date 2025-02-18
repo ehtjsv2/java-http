@@ -1,9 +1,7 @@
 package org.apache.coyote.http11.response;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
 import org.apache.coyote.http11.StatusCode;
 import org.apache.coyote.http11.request.ContentType;
 import org.junit.jupiter.api.DisplayName;
@@ -32,9 +30,9 @@ class Http11ResponseTest {
         // given
         String expectedBody = String.join(" \r\n",
                 "HTTP/1.1 200 OK",
-                "Content-Type: " +ContentType.JSON.toHttpResponseFormat()+";charset=utf-8",
+                "Content-Type: " + ContentType.JSON.toHttpResponseFormat() + ";charset=utf-8",
                 "Content-Length: 5",
-                "\r\n" +"hello");
+                "\r\n" + "hello");
         Http11Response response = Http11Response.createEmptyResponse();
         response.setStatusCode(StatusCode.OK);
         response.setContentType(ContentType.JSON);
