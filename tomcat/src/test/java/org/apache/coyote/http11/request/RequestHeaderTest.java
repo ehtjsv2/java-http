@@ -82,4 +82,56 @@ class RequestHeaderTest {
 
         assertThat(requestHeader.getCookie("JSESSIONID")).isNull();
     }
+
+    @DisplayName("cookie가 단 한개도 존재하지 않으면 null을 반환한다.")
+    @Test
+    void getCookie_null_when_cookie_has_any_cookie() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        assertThat(requestHeader.getCookie("JSESSIONID")).isNull();
+    }
+
+    @DisplayName("cookie가 단 한개도 존재하지 않을 때 setCookie()를 하면 Cookie를 생성한다.")
+    @Test
+    void create_cookie_when_setCookie_with_no_cookie_status() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        // when
+        requestHeader.setCookie("JSESSIONID", "testValue");
+
+        // then
+        assertThat(requestHeader.getCookie("JSESSIONID")).isNotNull();
+    }
+
+    @DisplayName("쿠키는 두개이상 존재 가능하다.")
+    @Test
+    void can_set_cookie_when_already_has_cookie() {
+        String input = String.join("\r\n",
+                "Host: localhost:8080 ",
+                "Connection: keep-alive ",
+                "Cookie: tasty_cookie=strawberry",
+                "Content-Type: text/html;charset=utf-8 ",
+                "Content-Length: 25");
+        RequestHeader requestHeader = new RequestHeader(input);
+
+        // when
+        requestHeader.setCookie("JSESSIONID", "testValue");
+
+        // then
+        assertAll(
+                () -> assertThat(requestHeader.getCookie("tasty_cookie")).isNotNull(),
+                () -> assertThat(requestHeader.getCookie("JSESSIONID")).isNotNull()
+        );
+
+    }
 }

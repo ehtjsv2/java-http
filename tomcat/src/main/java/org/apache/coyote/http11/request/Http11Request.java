@@ -1,5 +1,9 @@
 package org.apache.coyote.http11.request;
 
+import java.util.UUID;
+import org.apache.coyote.http11.session.Session;
+import org.apache.coyote.http11.session.SessionManager;
+
 public class Http11Request {
 
     private final RequestLine requestLine;
@@ -40,11 +44,25 @@ public class Http11Request {
         return requestLine.getQueryValue(queryKey);
     }
 
-    public String getCookie(String key){
+    public String getCookie(String key) {
         return requestHeader.getCookie(key);
     }
 
     public String getBodyValue(String key) {
         return requestBody.getValue(key);
+    }
+
+    // 요청에 대한 세션이 존재하지 않으면 create유무에 따라 생성합니다.
+    public Session getSession(boolean create) {
+        SessionManager sessionManager = SessionManager.getInstance();
+        Session session = sessionManager.findSession(getCookie("JSESSIONID"));
+        if(session == null && create == true){
+            String uuid = UUID.randomUUID().toString();
+            Session jSession = new Session(uuid);
+            requestHeader.setCookie("JESSIONID",uuid);
+            sessionManager.add(jSession);
+            return jSession;
+        }
+        return session;
     }
 }

@@ -22,6 +22,16 @@ public class RequestHeader {
         this.values = headerMap;
     }
 
+    public void setCookie(String key, String value) {
+        String cookieValue = key+"="+value;
+        if(!values.containsKey("Cookie")){
+            values.put("Cookie",cookieValue);
+        }
+        else{
+            values.put("Cookie",values.get("Cookie")+"; "+cookieValue);
+        }
+    }
+
     public String getValue(String key) {
         return values.get(key);
     }
@@ -46,6 +56,9 @@ public class RequestHeader {
     }
 
     public String getCookie(String key){
+        if(!values.containsKey("Cookie")){
+            return null;
+        }
         String cookies = values.get("Cookie");
         String[] splitCookieEntries = cookies.split("; ");
         for (String cookieEntry : splitCookieEntries) {

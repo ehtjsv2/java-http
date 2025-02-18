@@ -13,6 +13,7 @@ class ResponseHeaderTest {
         // given
         ResponseHeader responseHeader = new ResponseHeader();
         responseHeader.addCookie("JSESSIONID", "656cef62-e3c4-40bc-a8df-94732920ed46");
+        responseHeader.addCookie("COOKIE-2", "cookie-2-value");
 
         // when - then
         assertThat(responseHeader.getCookie("JSESSIONID")).isEqualTo("656cef62-e3c4-40bc-a8df-94732920ed46");
